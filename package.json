@@ -89,7 +89,12 @@
             {
                 "language": "nim",
                 "scopeName": "source.nim",
-                "path": "./syntaxes/nim.json"
+                "path": "./syntaxes/nim.json",
+                "embeddedLanguages": {
+                    "meta.embedded.block.html": "html",
+                    "meta.embedded.block.xml": "xml",
+                    "meta.embedded.block.json": "json"
+                }
             },
             {
                 "language": "nimble",

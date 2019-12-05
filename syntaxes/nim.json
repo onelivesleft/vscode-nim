@@ -1209,6 +1209,15 @@
           "include": "#fmt_string_triple_operator"
         },
         {
+          "include": "#string_quoted_triple_html"
+        },
+        {
+          "include": "#string_quoted_triple_xml"
+        },
+        {
+          "include": "#string_quoted_triple_json"
+        },
+        {
           "include": "#extended_string_quoted_triple_raw"
         },
         {
@@ -1520,6 +1529,60 @@
         }
       },
       "name": "string.quoted.triple.raw.nim"
+    },
+    "string_quoted_triple_html": {
+      "begin": "\\b(html)(\"\"\")",
+      "beginCaptures": {
+        "1": {
+          "name": "support.function.any-method.nim"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.nim"
+        }
+      },
+      "end": "\"\"\"",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.nim"
+        }
+      },
+      "name": "meta.embedded.block.html"
+    },
+    "string_quoted_triple_xml": {
+      "begin": "\\b(xml)(\"\"\")",
+      "beginCaptures": {
+        "1": {
+          "name": "support.function.any-method.nim"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.nim"
+        }
+      },
+      "end": "\"\"\"",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.nim"
+        }
+      },
+      "name": "meta.embedded.block.xml"
+    },
+    "string_quoted_triple_json": {
+      "begin": "\\b(json)(\"\"\")",
+      "beginCaptures": {
+        "1": {
+          "name": "support.function.any-method.nim"
+        },
+        "2": {
+          "name": "punctuation.definition.string.begin.nim"
+        }
+      },
+      "end": "\"\"\"",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.nim"
+        }
+      },
+      "name": "meta.embedded.block.json"
     },
     "extended_string_quoted_triple_raw": {
       "begin": "\\b(\\w+)(\"\"\")",
