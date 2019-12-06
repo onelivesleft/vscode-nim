@@ -57,16 +57,60 @@ export function activate(ctx: vscode.ExtensionContext): void {
             increaseIndentPattern: /^\s*((((proc|macro|iterator|template|converter|func)\b.*\=)|(import|export|var|const|type)\s)|(import|export|let|var|const|type)|([^:]+:))$/,
             decreaseIndentPattern: /^\s*(((return|break|continue|raise)\n)|((elif|else|except|finally)\b.*:))\s*$/
         },
-        wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,
-        onEnterRules: [{
-            beforeText: /^\s*$/,
-            action: { indentAction: vscode.IndentAction.None }
-        },
-        {
-            beforeText: /^(\s)*## /,
-            action: { indentAction: vscode.IndentAction.None, appendText: '## '}
-        }
-        ]
+        // @Note Literal whitespace in below regexps is removed
+        onEnterRules: [
+            {
+                beforeText: /^(\s)*## /,
+                action: { indentAction: vscode.IndentAction.None, appendText: '## '}
+            },
+            {
+                beforeText: new RegExp(String.raw`
+                    ^\s*
+                    (
+                        (case) \b .* :
+                    )
+                    \s*$
+                `.replace(/\s+?/g, '')),
+                action: {
+                    indentAction: vscode.IndentAction.None
+                }
+            },
+            {
+                beforeText: new RegExp(String.raw`
+                    ^\s*
+                    (
+                        (
+                            (proc|macro|iterator|template|converter|func) \b .*=
+                        )|(
+                            (import|export|let|var|const|type) \b
+                        )|(
+                            [^:]+:
+                        )
+                    )
+                    \s*$
+                `.replace(/\s+?/g, '')),
+                action: {
+                    indentAction: vscode.IndentAction.Indent
+                }
+            },
+            {
+                beforeText: new RegExp(String.raw`
+                ^\s*
+                    (
+                        (
+                            (return|raise|break|continue) \b .*
+                        )|(
+                            (discard) \b
+                        )
+                    )
+                    \s*
+                `.replace(/\s+?/g, '')),
+                action: {
+                    indentAction: vscode.IndentAction.Outdent
+                }
+            }
+        ],
+        wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g
     });
 
     vscode.window.onDidChangeActiveTextEditor(showHideStatus, null, ctx.subscriptions);
