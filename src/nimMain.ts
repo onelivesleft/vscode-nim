@@ -53,10 +53,6 @@ export function activate(ctx: vscode.ExtensionContext): void {
     ctx.subscriptions.push(diagnosticCollection);
 
     vscode.languages.setLanguageConfiguration(NIM_MODE.language as string, {
-        indentationRules: {
-            increaseIndentPattern: /^\s*((((proc|macro|iterator|template|converter|func)\b.*\=)|(import|export|var|const|type)\s)|(import|export|let|var|const|type)|([^:]+:))$/,
-            decreaseIndentPattern: /^\s*(((return|break|continue|raise)\n)|((elif|else|except|finally)\b.*:))\s*$/
-        },
         // @Note Literal whitespace in below regexps is removed
         onEnterRules: [
             {
