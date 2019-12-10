@@ -16,6 +16,9 @@ export interface ProjectFileInfo {
     filePath: string;
 }
 
+// import { showNimStatus, hideNimStatus } from './nimStatus';
+import { configureCasing } from './nimCasing';
+
 let _pathesCache: { [tool: string]: string; } = {};
 var _projects: ProjectFileInfo[] = [];
 
@@ -169,6 +172,7 @@ export function prepareConfig(): void {
             });
         }
     }
+    configureCasing(config);
 }
 
 export function getBinPath(tool: string): string {

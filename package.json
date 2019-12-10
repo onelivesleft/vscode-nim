@@ -193,6 +193,66 @@
                     "type": "integer",
                     "default": 60,
                     "description": "Nimsuggest will be restarted after this timeout in minutes, if 0 then restart disabled.\nThis option requires restart to take effect."
+                },
+                "nim.typeCasing": {
+                    "type": "string",
+                    "default": "as-is",
+                    "description": "The casing of types and type aliases",
+                    "enum": [
+                        "as-is",
+                        "pascal-camel",
+                        "snake"
+                    ]
+                },
+                "nim.moduleCasing": {
+                    "type": "string",
+                    "default": "as-is",
+                    "description": "The casing of modules",
+                    "enum": [
+                        "as-is",
+                        "pascal-camel",
+                        "snake"
+                    ]
+                },
+                "nim.procLikeCasing": {
+                    "type": "string",
+                    "default": "as-is",
+                    "description": "The casing of procs, templates, macros and iterators",
+                    "enum": [
+                        "as-is",
+                        "pascal-camel",
+                        "snake"
+                    ]
+                },
+                "nim.constantCasing": {
+                    "type": "string",
+                    "default": "as-is",
+                    "description": "The casing of constants",
+                    "enum": [
+                        "as-is",
+                        "pascal-camel",
+                        "snake"
+                    ]
+                },
+                "nim.enumFieldCasing": {
+                    "type": "string",
+                    "default": "as-is",
+                    "description": "The casing of enum fields",
+                    "enum": [
+                        "as-is",
+                        "pascal-camel",
+                        "snake"
+                    ]
+                },
+                "nim.variableCasing": {
+                    "type": "string",
+                    "default": "as-is",
+                    "description": "The casing of var, let, parameters, result and object/tuple fields",
+                    "enum": [
+                        "as-is",
+                        "pascal-camel",
+                        "snake"
+                    ]
                 }
             }
         },

@@ -10,7 +10,8 @@ import cp = require('child_process');
 import path = require('path');
 import fs = require('fs');
 import elrpc = require('./elrpc/elrpc');
-import { prepareConfig, getProjectFileInfo, isProjectMode, getNimExecPath, correctBinname, ProjectFileInfo, toLocalFile } from './nimUtils';
+import { prepareConfig, getProjectFileInfo, isProjectMode, getNimExecPath, correctBinname, ProjectFileInfo, toLocalFile} from './nimUtils';
+import { getCasingConfig } from './nimCasing';
 
 class NimSuggestProcessDescription {
     process?: cp.ChildProcess;
@@ -203,6 +204,8 @@ export async function execNimSuggest(suggestType: NimSuggestType, filename: stri
                 trace(desc.process.pid, toLocalFile(projectFile) + '=' + suggestCmd + ' ' + normalizedFilename, ret);
             }
 
+            let casingConfig = getCasingConfig();
+
             if (ret != null) {
                 if (ret instanceof Array) {
                     for (var i = 0; i < ret.length; i++) {
@@ -211,7 +214,17 @@ export async function execNimSuggest(suggestType: NimSuggestType, filename: stri
                             var item = new NimSuggestResult();
                             item.answerType = parts[0];
                             item.suggest = parts[1];
-                            item.names = parts[2];
+
+                            if (parts[2].length > 1) {
+                                let f = casingConfig.get('skModule');
+                                if (f) item.names.push(f(parts[2][0]));
+                            }
+
+                            for (let i = 1; i < parts[2].length; i++) {
+                                let f = casingConfig.get(item.suggest);
+                                if (f) item.names.push(f(parts[2][i]));
+                            }
+
                             item.path = parts[3].replace(/\\,\\/g, '\\');
                             item.type = parts[4];
                             item.line = parts[5];
