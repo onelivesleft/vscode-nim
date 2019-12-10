@@ -226,7 +226,14 @@ export async function execNimSuggest(suggestType: NimSuggestType, filename: stri
                             }
 
                             item.path = parts[3].replace(/\\,\\/g, '\\');
+
                             item.type = parts[4];
+                            {
+                                let f = casingConfig.get('skType');
+                                if (f) item.type = item.type.replace(/\w+/g, f);
+                                // console.log(item.type);
+                            }
+
                             item.line = parts[5];
                             item.column = parts[6];
                             var doc = parts[7];
