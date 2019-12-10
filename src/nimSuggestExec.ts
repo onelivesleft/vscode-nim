@@ -231,7 +231,6 @@ export async function execNimSuggest(suggestType: NimSuggestType, filename: stri
                             {
                                 let f = casingConfig.get('skType');
                                 if (f) item.type = item.type.replace(/\w+/g, f);
-                                // console.log(item.type);
                             }
 
                             item.line = parts[5];
